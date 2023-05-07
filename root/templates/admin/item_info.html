@@ -1,0 +1,171 @@
+{% extends "layouts/admin_layout.html" %}
+    {% block additional_styles %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='dist/theme/mermaid.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/colors.css') }}">
+    {% endblock %}
+{% block main_tag %}
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active text-color-classic-blue fw-bold" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                    type="button" role="tab" aria-controls="nav-home" aria-selected="true">INFORMATIONS</button>
+            <button class="nav-link text-color-classic-blue fw-bold" id="nav-stock-tab" data-bs-toggle="tab" data-bs-target="#nav-stock"
+                    type="button" role="tab" aria-controls="nav-stock" aria-selected="false">ETAT DE STOCK</button>
+{#            <button class="nav-link text-color-classic-blue fw-bold" id="nav-together-tab" data-bs-toggle="tab" data-bs-target="#nav-together"#}
+{#                    type="button" role="tab" aria-controls="nav-together" aria-selected="false">VUE D'ENSEMBLE DE DEPOT</button>#}
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <h4 class="h2 mt-5 mb-5 text-color-arcadia text-upper-case">Détails</h4>
+            <table class="table table-hover">
+                <tbody>
+                    {% if item %}
+                        <tr>
+                            <th scope="row">ID</th>
+                            <td>{{ item['id'] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Désignation</th>
+                            <td>{{ item['label'] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Série</th>
+                            <td>{{ item['serie'] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Référence interne</th>
+                            <td>{{ item['intern_reference'] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Catégorie</th>
+                            <td>{{ item['used_for'] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Date d'expiration</th>
+                            <td>{{ item['expired_at'][0] }}   <span class="badge rounded-pill text-dark"
+                                                   style="background-color: {{ item['expired_at'][1] }}">   {{ item['expired_at'][2] }}</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Stock de sécurité</th>
+                            <td>{{ item['stock_sec'] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Format</th>
+                            <td>{{ item['format'] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Aspect</th>
+                            <td>{{ item['aspect'] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Produit Par</th>
+                            <td>{{ item['manufacturer'] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Pièces/poids par {{ item['unit'] }}</th>
+                            <td>{{ item['piece_per_unit'] }}</td>
+                        </tr>
+
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-together" role="tabpanel" aria-labelledby="nav-together-tab"></div>
+        <div class="tab-pane fade" id="nav-stock" role="tabpanel" aria-labelledby="nav-stock-tab">
+            <h4  class="h3 mt-5 mb-5 text-upper-case text-color-arcadia">Etat de stock</h4>
+            <div class="row w-50">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th scope="row">En stock</th>
+                            <td><h3 class="h2"> {{ item['stock_qte'] }} {{ item['unit'] }}</h3></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="table"></div>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_scripts %}
+    <script src="{{ url_for('static', filename='dist/gridjs.umd.js') }}"></script>
+    <script>
+        new gridjs.Grid({
+            autoWidth:true,
+            fixedHeader:true,
+            style:{
+                table:{
+                    'width':"100%"
+                }
+            },
+            language:{
+                search: {
+                  placeholder: 'Recherche...',
+                },
+                sort: {
+                  sortAsc: 'Ordre croissant',
+                  sortDesc: 'Ordre décroissant',
+                },
+                pagination: {
+                  previous: 'Précédent',
+                  next: 'Suivant',
+                  navigate: (page, pages) => `Page ${page} of ${pages}`,
+                  page: (page) => `Page ${page}`,
+                  showing: 'Affichage..',
+                  of: 'de',
+                  to: 'à',
+                  results: 'résultats',
+                },
+                loading: 'Chargement...',
+                noRecordsFound: 'Aucun enregistrements',
+                error: 'Erreur pendant le chargement des données'},
+            columns: [
+                { id: 'date', name: "DATE"},
+                { id: 'reference', name: 'RÉFÉRENCE' },
+                { id: 'date_reference', name: 'DATE DE LA RÉFÉRENCE' },
+                { id: 'beneficiary', name: "COMMANDE DE/PAR" },
+                { id: 'status', name: 'Etat' },
+                { id:'type_e', name: 'ENTREE' },
+                { id:'type_s', name: "SORTIE" },
+                { id:'in_stock', name: 'EN STOCK' }
+            ],
+            data: ()=>{
+                return new Promise(resolve => {
+                    setTimeout(()=>
+                        resolve([
+                            {% if entries %}
+                                {% for entry in entries %}
+                                    {
+                                        date:"{{ entry['date'] }}",
+                                        reference:'{% if entry['reference'] %}{{ entry["reference"]}}{% else %} / {% endif %}',
+                                        date_reference:'{% if entry['date_reference'] %}{{ entry["date_reference"]}}{% else %} / {% endif %}',
+                                        type:'{{ entry["type_e"]}}',
+                                        beneficiary:'{% if entry['beneficiary'] %}{{ entry["beneficiary"][1]}}{% else %} / {% endif %}',
+                                        {% if not entry['beneficiary']%}
+                                            status:gridjs.html(`<span class="badge rounded rounded-pill" style="background-color: #0072B5;">Inventaire </span>`),
+                                        {% else %}
+                                           status:  gridjs.html(`<span class="badge rounded rounded-pill" style="background-color: {{ entry['status'][0] }};">{{ entry['status'][1] }}</span>`),
+                                        {% endif %}
+                                        in_stock:gridjs.html(`<span class="text-color-classic-blue fw-bold">{{ entry["in_stock"]}} {{ item['unit'] }}</span>`),
+                                        type_e:gridjs.html(`{% if entry['type']==0 %}<span class="text-color-arcadia"> {{ entry['delivered_quantity'] }} {{ item['unit'] }}</span> {% else %} - {% endif %}`),
+                                        {#type_e:gridjs.html(`<span style="text-color: #006B54; font-weight-bold;"> {{ entry['qs'] }} {{ item['unit'] }}</span>`),#}
+                                        type_s:gridjs.html(`{% if entry['type'] == 1 %}<span class="text-color-valiant fw-bold"> - {{ entry['delivered_quantity'] }} {{ item['unit'] }}</span> {% else %} - {% endif %}`),
+                                        {#type_s:gridjs.html(`<span style="text-color: #CD212A;" > - {{ entry['qs'] }} {{ item['unit'] }}</span>`),#}
+                                    },
+                                {% endfor %}
+                            {% endif %}
+                        ]),100
+                                );
+                            });
+                        },
+            search: {
+              selector: (cell, rowIndex, cellIndex) => [0, 1, 2, 3, 4, 5].includes(cellIndex) ? cell : null,
+            },
+            sort: true,
+            pagination: true
+          }).render(document.getElementById('table'));
+    </script>
+{% endblock %}

@@ -1,0 +1,236 @@
+.w3-2020-classic-blue
+{color:#fff!important;background-color:#34568B!important}
+.w3-2020-flame-scarlet
+{color:#fff!important;background-color:#CD212A!important}
+.w3-2020-saffron
+{color:#000!important;background-color:#FFA500!important}
+.w3-2020-biscay-green
+{color:#000!important;background-color:#56C6A9!important}
+.w3-2020-chive
+{color:#fff!important;background-color:#4B5335!important}
+.w3-2020-faded-denim
+{color:#fff!important;background-color:#798EA4!important}
+.w3-2020-orange-peel
+{color:#fff!important;background-color:#FA7A35!important}
+.w3-2020-mosaic-blue
+{color:#fff!important;background-color:#00758F!important}
+.w3-2020-sunlight
+{color:#000!important;background-color:#EDD59E!important}
+.w3-2020-coral-pink
+{color:#000!important;background-color:#E8A798!important}
+.w3-2020-cinnamon-stick
+{color:#fff!important;background-color:#9C4722!important}
+.w3-2020-grape-compote
+{color:#fff!important;background-color:#6B5876!important}
+.w3-2020-lark
+{color:#fff!important;background-color:#B89B72!important}
+.w3-2020-navy-blazer
+{color:#fff!important;background-color:#282D3C!important}
+.w3-2020-brilliant-white
+{color:#000!important;background-color:#EDF1FF!important}
+.w3-2020-ash
+{color:#fff!important;background-color:#A09998!important}
+.w3-2020-amberglow
+{color:#fff!important;background-color:#DC793E!important}
+.w3-2020-samba
+{color:#fff!important;background-color:#A2242F!important}
+.w3-2020-sandstone
+{color:#fff!important;background-color:#C48A69!important}
+.w3-2020-green-sheen
+{color:#000!important;background-color:#D9CE52!important}
+.w3-2020-rose-tan
+{color:#000!important;background-color:#D19C97!important}
+.w3-2020-ultramarine-green
+{color:#fff!important;background-color:#006B54!important}
+.w3-2020-fired-brick
+{color:#fff!important;background-color:#6A2E2A!important}
+.w3-2020-peach-nougat
+{color:#000!important;background-color:#E6AF91!important}
+.w3-2020-magenta-purple
+{color:#fff!important;background-color:#6C244C!important}
+
+.w3-2021-marigold
+{color:#fff!important;background-color:#FDAC53!important}
+.w3-2021-cerulean
+{color:#000!important;background-color:#9BB7D4!important}
+.w3-2021-rust
+{color:#fff!important;background-color:#B55A30!important}
+.w3-2021-illuminating
+{color:#000!important;background-color:#F5DF4D!important}
+.w3-2021-french-blue
+{color:#fff!important;background-color:#0072B5!important}
+.w3-2021-green-ash
+{color:#000!important;background-color:#A0DAA9!important}
+.w3-2021-burnt-coral
+{color:#fff!important;background-color:#E9897E!important}
+.w3-2021-mint
+{color:#fff!important;background-color:#00A170!important}
+.w3-2021-amethyst-orchid
+{color:#fff!important;background-color:#926AA6!important}
+.w3-2021-raspberry-sorbet
+{color:#fff!important;background-color:#D2386C!important}
+.w3-2021-inkwell
+{color:#fff!important;background-color:#363945!important}
+.w3-2021-ultimate-gray
+{color:#fff!important;background-color:#939597!important}
+.w3-2021-buttercream
+{color:#000!important;background-color:#EFE1CE!important}
+.w3-2021-desert-mist
+{color:#000!important;background-color:#E0B589!important}
+.w3-2021-willow
+{color:#fff!important;background-color:#9A8B4F!important}
+
+.text-color-grey{
+    color: #dddfeb!important;
+}
+
+.text-color-sales{
+    color: #858796!important;
+}
+
+.text-color{
+    color: #34495e;
+}
+.border-left-supplier{
+    border-left: .25em solid #BD3D3A ;
+}
+
+.text-color-arcadia{
+    color: #00A591!important;
+}
+
+.text-color-valiant{
+    color: #BD3D3A!important;
+}
+
+.border-left-client{
+    border-left: .25em solid #00A591 ;
+}
+
+.text-color-classic-blue{
+    color: #34568B!important;
+}
+
+.border-left-produit{
+    border-left: .25em solid #006B54;
+}
+
+.text-color-mint{
+    color: #006B54!important;
+}
+.text-upper-case{
+    text-transform: uppercase!important;
+}
+.text-small{
+    font-size: .9em;
+}
+
+
+.fw-bold{
+    font-weight: 600!important;
+}
+
+.timeline .timeline-item {
+    display: flex;
+    align-items: flex-start;
+}
+.timeline .timeline-item .timeline-item-marker {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    }
+.timeline .timeline-item .timeline-item-marker .timeline-item-marker-text {
+    font-size: 0.875rem;
+    width: 6rem;
+    color: #a7aeb8;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    }
+.timeline .timeline-item .timeline-item-marker .timeline-item-marker-indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+    width: 5rem;
+    background-color: #f2f6fc;
+    border-radius: 100%;
+    }
+.timeline .timeline-item .timeline-item-content {
+    padding-top: 0;
+    padding-bottom: 2rem;
+    padding-left: 1rem;
+    width: 100%;
+    }
+.timeline .timeline-item:last-child .timeline-item-content {
+    padding-bottom: 0 !important;
+    }
+
+@media (min-width: 576px) {
+    .timeline .timeline-item .timeline-item-marker {
+        flex-direction: row;
+        transform: translateX(1.625rem);
+        margin-bottom: 0;
+    }
+.timeline .timeline-item .timeline-item-marker .timeline-item-marker-text {
+        margin-right: 0.5rem;
+        margin-bottom: 0;
+    }
+.timeline .timeline-item .timeline-item-content {
+        padding-top: 0.75rem;
+        padding-bottom: 3rem;
+        padding-left: 3rem;
+        border-left: solid 0.25rem #f2f6fc;
+    }
+.timeline .timeline-item:last-child .timeline-item-content {
+        border-left-color: transparent;
+    }
+    }
+.timeline.timeline-sm .timeline-item .timeline-item-marker {
+    transform: translateX(0.875rem);
+    }
+.timeline.timeline-sm .timeline-item .timeline-item-marker .timeline-item-marker-text {
+    width: 3rem;
+    font-size: 0.7rem;
+    }
+.timeline.timeline-sm .timeline-item .timeline-item-marker .timeline-item-marker-indicator {
+    height: 3rem;
+    width: 3rem;
+    font-size: 0.875rem;
+    }
+.timeline.timeline-sm .timeline-item .timeline-item-marker .timeline-item-marker-indicator .feather {
+    height: 0.75rem;
+    width: 0.75rem;
+    }
+.timeline.timeline-sm .timeline-item .timeline-item-content {
+    font-size: 1.1rem;
+    padding-top: 0.15rem;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+    }
+
+.timeline.timeline-xs .timeline-item .timeline-item-marker {
+    transform: translateX(0.5625rem);
+    }
+.timeline.timeline-xs .timeline-item .timeline-item-marker .timeline-item-marker-text {
+    width: 3rem;
+    font-size: 0.7rem;
+    }
+.timeline.timeline-xs .timeline-item .timeline-item-marker .timeline-item-marker-indicator {
+    height: 0.875rem;
+    width: 0.875rem;
+    font-size: 1rem;
+    border: 0.125rem solid #fff;
+    margin-top: -0.125rem;
+    }
+.timeline.timeline-xs .timeline-item .timeline-item-content {
+    font-size: 0.875rem;
+    padding-top: 0;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+    }

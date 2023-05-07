@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tableau de bord</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="OUAREM Oualid" />
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}">
+        <script src="{{ url_for('static', filename='js/all.js') }}"></script>
+        {% block additional_styles %}
+        {% endblock additional_styles %}
+
+        <style>
+            body{
+                background-color: #F6F5F2;
+            }
+
+            .nav-link{
+                color: white;
+            }
+            .nav-link:hover{
+                color: #77BBD9;
+            }
+            .navbar-custom,
+            .sb-sidenav-menu,
+            .btn-custom{
+                background-color: #2E3741;
+            }
+
+        </style>
+    </head>
+        <body class="sb-nav-fixed">
+            <nav class="sb-topnav navbar navbar-custom navbar-expand">
+                <!-- Navbar Brand-->
+                <span class="navbar-brand ps-3 text-white">CristalCeram </span>
+                <!-- Sidebar Toggle-->
+                <button class="btn btn-sm order-1 order-lg-0 me-4 me-lg-0 btn-custom" id="sidebarToggle" href="#!">
+                    <i style="color: white;" class="fas fa-bars"></i>
+                </button>
+                <!-- Navbar Search-->
+                <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                </div>
+                <!-- Navbar-->
+                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4 text-white">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i  class="fas fa-user fa-fw text-white"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('auth_bp.logout') }}">Se déconnecter</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <div id="layoutSidenav">
+                <div id="layoutSidenav_nav">
+                    <nav class="sb-sidenav accordion" style="background-color: #597A96;" id="sidenavAccordion">
+                        <div class="sb-sidenav-menu">
+                            <div class="nav text-white">
+                                <a class="nav-link" href="{{ url_for('purchases_bp.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    Tableau de bord du site
+                                </a>
+                                <div class="sb-sidenav-menu-heading">Gestion</div>
+{#                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePurchases__" aria-expanded="false" aria-controls="collapsePurchases">#}
+{#                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>#}
+{#                                    Les Achats#}
+{#                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>#}
+{#                                </a>#}
+{#                                <div class="collapse {% if session['endpoint']=='orders' %}show{% endif %}" id="collapsePurchases__" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">#}
+{#                                    <nav class="sb-sidenav-menu-nested nav ">#}
+{#                                        <a class="nav-link" href="{{ url_for('purchases_bp.purchases_orders') }}">Commandes fournisseurs</a>#}
+{#                                        <a class="nav-link" href="{{ url_for('purchases_bp.purchases_receipts') }}">Les bons de réception</a>#}
+{#                                        <a class="nav-link" href="{{ url_for('purchases_bp.purchases_invoices') }}">Les factures d'achat</a>#}
+{#                                    </nav>#}
+{#                                </div>#}
+                                    <a class="nav-link" href="{{ url_for('purchases_bp.exit_vouchers') }}">Bon de sortie</a>
+                                    <a class="nav-link" href="{{ url_for('purchases_bp.purchases_receipts') }}">Retours</a>
+{#                                  <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsestock__" aria-expanded="false" aria-controls="collapsestock">#}
+{#                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>#}
+{#                                        Stocks#}
+{#                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>#}
+{#                                  </a>#}
+{#                                <div class="{% if session['endpoint']=='stocks' %}show{% endif %}" id="collapsestock__" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">#}
+{#                                    <nav class="sb-sidenav-menu-nested nav ">#}
+{#                                        <a class="nav-link" href="{{ url_for('purchases_bp.exit_vouchers') }}">Bon de sortie</a>
+                                    <a class="nav-link" href="{{ url_for('purchases_bp.exit_vouchers') }}">Retours</a>#}
+{#                                        <a class="nav-link" href="{{ url_for('purchases_bp.exit_vouchers') }}">Bon de sortie</a>
+                                    <a class="nav-link" href="{{ url_for('purchases_bp.exit_vouchers') }}">Retours</a>#}
+{#                                    </nav>#}
+{#                                </div>#}
+                            </div>
+                            <div class="sb-sidenav-footer text-white">
+                                <div class="small">Connecté en tant que: {{ session['role'] }}</div>
+                                Gestion Commerciale
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div id="layoutSidenav_content">
+                    <main>
+                        <div class="container-fluid px-4">
+                            <h1 class="mt-5" style="text-transform: uppercase;">{% block actual_title %}{% endblock actual_title %}</h1>
+
+                            {% block main_tag %}
+                            {% endblock main_tag %}
+                        </div>
+                    </main>
+                    <footer class="py-4 bg-light mt-auto">
+                    <!-- <footer class="py-4 bg-light mt-auto position-fixed bottom-0 w-100"></footer> -->
+                        <div class="container px-4">
+                            <div class="d-flex align-items-center justify-content-between small">
+                                <div class="text-muted">Développé par OUAREM Oualid</div>
+                                {# <div>
+                                    <a href="#">Privacy Policy</a>
+                                    
+                                    <a href="#">Terms &amp; Conditions</a>
+                                </div> #}
+                                <div>
+                                    <span class="text-muted">Contact: 0673 66 93 97</span>
+                                    &middot;
+                                    <span class="text-muted">Email: oualid.ouarem@gmail.com</span>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+            </div>
+            </div>
+
+            <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+            {% block additional_scripts %}
+            {% endblock additional_scripts %}
+    </body>
+</html>

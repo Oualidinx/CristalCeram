@@ -1,0 +1,104 @@
+{% extends "layouts/admin_layout.html" %}
+{% block actual_title %}
+    Nouveau(x) Dépôt(s)
+{% endblock %}
+{% block main_tag %}
+    <div class="row">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="toast-container position-absolute top-0 end-0 p-3">
+                    {% for category, message in messages %}
+                        <div class="toast align-items-center text-white bg-{{ category }} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex">
+                                <div class="toast-body text-black fw-light fs-6">
+                                    {{ message }}
+                                </div>
+                            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                          </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+        <div class="row mt-lg-5">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title ">Ajouter le(s) dépôt(s)</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="row g-1 mb-4">
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    {% if form.name.errors %}
+                                        <div class="input-group has-validation">
+                                            {{ form.name(class="form-control is-invalid") }}
+                                            {% for error in form.name.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{ error }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.name(class="form-control") }}
+                                    {% endif %}
+                                    {{ form.name.label }}
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    {% if form.address.errors %}
+                                        <div class="input-group has-validation">
+                                            {{ form.address(class="form-control is-invalid") }}
+                                            {% for error in form.address.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{error}}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.address(class="form-control") }}
+                                    {% endif %}
+                                    {{ form.address.label }}
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    {% if form.contact.errors %}
+                                        <div class="input-group has-validation">
+                                            {{ form.contact(class="form-control is-invalid") }}
+                                            {% for error in form.contact.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{error}}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.contact(class="form-control") }}
+                                    {% endif %}
+                                    {{ form.contact.label }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                {{ form.submit(class="btn btn-primary btn-md", style="border-radius: 20px;") }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+{% block additional_scripts %}
+    <script !src="">
+        $(document).ready(function(){
+            $('.toast').toast("show");
+        })
+    </script>
+
+{% endblock %}

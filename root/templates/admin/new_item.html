@@ -1,0 +1,281 @@
+{% extends "layouts/admin_layout.html" %}
+{% block additional_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2-bootstrap-5.min.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/colors.css') }}" />
+{% endblock %}
+
+{% block main_tag %}
+    <div class="container">
+
+
+        <div class="row">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="toast-container position-absolute top-0 end-0 p-3">
+                        {% for category, message in messages %}
+
+                            <div class="toast align-items-center text-white bg-{{ category }} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="d-flex">
+                                    <div class="toast-body text-black fw-light fs-6">
+                                        {{ message }}
+                                    </div>
+                                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                              </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div class="row mt-5">
+            <!-- <div class="card"> -->
+                <!-- <div class="card-body"> -->
+                    <form method="post">
+                        {{form.hidden_tag()}}
+                        <div class="row g-1 mb-4">
+                            <div class="col-sm">
+                                <div class="form-floating">
+                                    {% if form.intern_reference.errors %}
+                                        <div class="input-group has-validation">
+                                            {{ form.intern_reference(class="form-control is-invalid") }}
+                                            {% for error in form.intern_reference.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{ error }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.intern_reference(class="form-control") }}
+                                    {% endif %}
+                                    {{ form.intern_reference.label }}
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-floating">
+                                    {% if form.label.errors %}
+                                        <div class="input-group has-validation">
+                                            {{ form.label(class="form-control is-invalid") }}
+                                            {% for error in form.label.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{ error }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.label(class="form-control") }}
+                                    {% endif %}
+                                    {{ form.label.label }}
+                                </div>
+                            </div>
+
+                            <div class="col-sm">
+                                <div class="form-floating">
+                                    {% if form.serie.errors %}
+                                        <div class="input-group has-validation">
+                                            {{ form.serie(class="form-control is-invalid") }}
+                                            {% for error in form.serie.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{ error }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.serie(class="form-control") }}
+                                    {% endif %}
+                                    {{ form.serie.label }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-1 mb-4">
+                            <div class="col-sm">
+                                <div class="input-group has-validation">
+                                    <div class="input-group-text">{{ form.format.label }}</div>
+                                    {% if form.format.errors %}
+                                        {{ form.format(class="form-select is-invalid") }}
+                                        {% for error in form.format.errors %}
+                                            <div class="invalid-feedback">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ form.format(class="form-select") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-sm">
+
+                                <div class="input-group has-validation">
+                                    <div class="input-group-text"> {{ form.aspect.label }}</div>
+                                    {% if form.aspect.errors %}
+                                        {{ form.aspect(class="form-select is-invalid") }}
+                                        {% for error in form.aspect.errors %}
+                                            <div class="invalid-feedback">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+
+                                    {% else %}
+                                        {{ form.aspect(class="form-select") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="input-group has-validation">
+                                    <div class="input-group-text">{{ form.utilisation.label }}</div>
+                                    {% if form.utilisation.errors %}
+                                        {{ form.utilisation(class="form-select is-invalid") }}
+                                        {% for error in form.utilisation.errors %}
+                                            <div class="invalid-feedback">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ form.utilisation(class="form-select") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-1 mb-4">
+                            <div class="col-sm">
+                                <div class="form-floating">
+                                    {% if form.expired_at.errors %}
+                                        <div class="input-group has-validation">
+                                            {{ form.expired_at(class="form-control is-invalid") }}
+                                            {% for error in form.expired_at.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{ error }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.expired_at(class="form-control") }}
+                                    {% endif %}
+                                    {{ form.expired_at.label }}
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-floating">
+                                    {% if form.stock_sec.errors %}
+                                        <div class="input-group has-validation">
+                                            {{ form.stock_sec(class="form-control is-invalid") }}
+                                            {% for error in form.stock_sec.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{ error }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.stock_sec(class="form-control") }}
+                                    {% endif %}
+                                    {{ form.stock_sec.label }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-1 mb-4">
+                            <div class="col-md form-group">
+                                <div class="form-floating">
+                                    {% if form.manufacturer.errors %}
+                                        <div class="input-group has-validation">
+                                            {{ form.manufacturer(class="form-control is-invalid") }}
+                                            {% for error in form.manufacturer.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{ error }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.manufacturer(class="form-control") }}
+                                    {% endif %}
+                                    {{ form.manufacturer.label }}
+                                </div>
+                            </div>
+                            <div class="col-md form-group">
+                                <div class="form-floating" data-bs-toggle="tooltip" data-bs-placement="top" title="Par exemple: M²">
+                                    {% if form.unit.errors %}
+                                        <div class="input-group has-validation">
+                                            {{ form.unit(class="form-control is-invalid") }}
+                                            {% for error in form.unit.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{ error }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                         {{ form.unit(class="form-control") }}
+
+                                    {% endif %}
+                                    {{ form.unit.label }}
+                                </div>
+                            </div>
+                            <div class="col-md form-group">
+                                <div class="form-floating">
+                                    {% if form.piece_per_unit.errors %}
+                                        <div class="input-group has-validation">
+                                            {{ form.piece_per_unit(class="form-control is-invalid") }}
+                                            {% for error in form.piece_per_unit.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{ error }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.piece_per_unit(class="form-control") }}
+                                    {% endif %}
+                                    {{ form.piece_per_unit.label }}
+                                </div>
+                            </div>
+{#                            <div class="col-md form-group">#}
+{#                                <div class="form-floating">#}
+{#                                    {% if form.sale_price.errors %}#}
+{#                                        <div class="input-group has-validation">#}
+{#                                            {{ form.sale_price(class="form-control is-invalid") }}#}
+{#                                            {% for error in form.sale_price.errors %}#}
+{#                                                <div class="invalid-feedback">#}
+{#                                                    {{ error }}#}
+{#                                                </div>#}
+{#                                            {% endfor %}#}
+{#                                        </div>#}
+{#                                    {% else %}#}
+{#                                        {{ form.sale_price(class="form-control") }}#}
+{#                                    {% endif %}#}
+{#                                    {{ form.sale_price.label }}#}
+{#                                </div>#}
+{#                            </div>#}
+                        </div>
+                        <div class="row g-1 mb-4 position-static" style="text-align: right;">
+                            <div class="col-sm">
+                                {{ form.submit(class="btn btn-outline-primary rounded rounded-pill") }}
+                            </div>
+                            
+                        </div>
+                    </form>
+                <!-- </div> -->
+            <!-- </div> -->
+        </div>
+    </div>
+{% endblock %}
+{% block additional_scripts %}
+    <script src="{{ url_for('static', filename='js/select2.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+             $('.toast').toast('show');
+             $('#format').select2({
+                 theme: "bootstrap-5",
+                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style'
+             });
+             $('#aspect').select2({
+                 theme: "bootstrap-5",
+                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style'
+             });
+             $('#utilisation').select2({
+                 theme: "bootstrap-5",
+                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style'
+             })
+        });
+    </script>
+{% endblock %}
+{% block actual_title %}
+    <span class="text-color-classic-blue fw-bold">Ajouter un article</span>
+{% endblock %}

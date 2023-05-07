@@ -1,0 +1,158 @@
+{% extends "layouts/admin_layout.html" %}
+{% block additional_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/theme/mermaid.css') }}">
+{% endblock %}
+
+{% block actual_title %}
+    Les familles des articles
+{% endblock actual_title %}
+{% block main_tag %}
+    <div class="row mt-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="toast-container position-absolute top-0 end-0 p-3">
+                    {% for category, message in messages %}
+                        <div class="toast align-items-center text-white bg-{{ category }} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex">
+                                <div class="toast-body text-black fw-light fs-6">
+                                    {{ message }}
+                                </div>
+                            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                          </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <div class="col">
+            <div class="position-static" style="text-align: right;  z-index: 2;">
+                <button class="btn btn-outline-success rounded rounded-pill" data-bs-toggle="modal" data-bs-target="#NouveauFormat">
+                    <i class="fa fa-circle-plus"></i>
+                    Ajouter
+                </button>
+            </div>
+            <div id="table"></div>
+            <div class="modal bg-m" id="NouveauFormat" data-bs-backdrop="static" data-bs-keyboard="false"
+                                        tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Nouvelle Famille</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <form id="form" method="post">
+                                    {{ form.hidden_tag() }}
+                                    <div class="info-row row g-1 justify-content-center">
+                                    </div>
+                                    <div class="row g-1 mb-3">
+                                        <div class="col-md">
+                                            <div class="input-group has-validation p-3">
+                                                <div class="input-group-text"> {{ form.label.label }}</div>
+                                                {% if form.label.errors %}
+                                                    {{ form.label(class="form-control is-invalid") }}
+                                                    {% for error in form.label.errors %}
+                                                        <div class="invalid-feedback">
+                                                            {{ error }}
+                                                        </div>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    {{ form.label(class="form-control") }}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-1 mb-4 position-static" style="text-align: right;">
+                                        <div class="form-group">
+                                            {{ form.submit(class="btn btn-md btn-outline-primary rounded rounded-pill ") }}
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block additional_scripts %}
+    <script src="{{ url_for('static', filename='dist/gridjs.umd.js') }}"></script>
+    <script>
+        $(document).ready(function (){
+            $('.toast').toast('show');
+            {% if form.errors %}
+                $('.modal').modal('show');
+            {% endif %}
+        })
+        new gridjs.Grid({
+            autoWidth:true,
+            fixedHeader:true,
+            style:{
+                table:{
+                    'width':"100%"
+                }
+            },
+            language:{
+                search: {
+                  placeholder: 'Recherche...',
+                },
+                sort: {
+                  sortAsc: 'Ordre croissant',
+                  sortDesc: 'Ordre décroissant',
+                },
+                pagination: {
+                  previous: 'Précédent',
+                  next: 'Suivant',
+                  navigate: (page, pages) => `Page ${page} of ${pages}`,
+                  page: (page) => `Page ${page}`,
+                  showing: 'Affichage..',
+                  of: 'de',
+                  to: 'à',
+                  results: 'résultats',
+                },
+                loading: 'Chargement...',
+                noRecordsFound: 'Aucun enregistrements',
+                error: 'Erreur pendant le chargement des données'},
+            columns: [
+                { id: 'id', name: 'Num' },
+                { id: 'label', name: 'Libellé de catégorie' },
+                { id:'actions', name:'Actions'}
+            ],
+            data: ()=>{
+                return new Promise(resolve => {
+                    setTimeout(()=>
+                        resolve([
+                {% if liste %}
+                    {% for format in liste %}
+                        {
+                              id: '{{ format["id"] }}',
+                              label :'{{ format["label"] }}',
+                              actions: gridjs.html(`<div class="dropdown dropstart">
+                                  <div class="btn-group">
+
+                                        <a role="button" class="btn btn-sm btn-outline-secondary" href="{{ url_for('admin_bp.edit_familly',f_id=format['id']) }}"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Modifier">
+                                            <i class="fa-solid fa-file-pen"></i></a>
+                                        <a role="button" class="btn btn-sm btn-outline-danger" href="{{ url_for('admin_bp.delete_familly',f_id=format['id']) }}"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer">
+                                            <i class="fa-solid fa-trash-can"></i></a>
+                                  </div>
+                            </div>`
+                              )
+                        },
+                    {% endfor %}
+                {% endif %}
+            ]),1000
+                    )
+                })
+            },
+            search: {
+              selector: (cell, rowIndex, cellIndex) => [0, 1].includes(cellIndex) ? cell : null,
+            },
+            sort: true,
+            pagination: true
+          }).render(document.getElementById('table'));
+    </script>
+{% endblock %}
